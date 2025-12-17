@@ -53,23 +53,23 @@ def extract_features(base_path, max_persons=1000):
     processed_files = []
     
     for front_file in tqdm(front_files, desc="Processing images"):
-        #side_file = front_file  # Same filename in side folder
+        side_file = front_file  # Same filename in side folder
         
         front_features = load_and_process_image(
             os.path.join(front_path, front_file),
             device, mtcnn, resnet
         )
         #print("front-features")
-        #print(front_features)
+        print(front_features)
         # print("Hi")
         
-        # side_features = load_and_process_image(
-        #     os.path.join(base_path, 'side', side_file),
-        #     device, mtcnn, resnet
-        # )
+        side_features = load_and_process_image(
+            os.path.join(base_path, 'side', side_file),
+            device, mtcnn, resnet
+        )
 
-        side_features = np.zeros((512,))
-       # print(side_features)
+
+        print(side_features)
         if front_features is not None and side_features is not None:
             combined_features = np.concatenate([front_features, side_features])
             all_features.append(combined_features)
